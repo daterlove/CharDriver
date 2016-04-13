@@ -19,19 +19,18 @@
 int main(int argc,char **argv)
 {
     int ret;
-    unsigned char value;
     int val;
-    
+    int value;
+    ret=-1;value=-1;
+    printf("ret:%d,value:%d\n\n",ret,value);
     int fd=open("/dev/simple_char_drv",O_RDWR | O_NONBLOCK);
     if(fd<0)
     {
-        printf("Cant open driver!\n");
+        printf("Can‘t open driver!\n");
         return -1;
     }
     
-    ret = read(fd, &value, 1);
-    printf("ret:%d,value:%d\n\n",ret,value);
-    
+    //-------开-关LED灯--
     for(val=4;val<=6;val++)
     {
         write(fd, &val, 4);
@@ -43,5 +42,14 @@ int main(int argc,char **argv)
         write(fd, &val, 4);
         sleep(1);
     }
+    //------读取按键值状态--
+    while (1)
+	{
+        //printf("sizeof(value):%d\n",sizeof(value));
+       // printf("%d\n",sizeof(value));
+		ret = read(fd, &value,1);
+        printf("ret:%d,value:%d\n\n",ret,value);
+	}
+	
     return 0;
 }
