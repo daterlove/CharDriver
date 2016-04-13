@@ -18,11 +18,8 @@
 
 int main(int argc,char **argv)
 {
-    int ret;
-    int val;
-    int value;
-    ret=-1;value=-1;
-    printf("ret:%d,value:%d\n\n",ret,value);
+    int ret,val,value;
+
     int fd=open("/dev/simple_char_drv",O_RDWR | O_NONBLOCK);
     if(fd<0)
     {
@@ -46,9 +43,17 @@ int main(int argc,char **argv)
     while (1)
 	{
         //printf("sizeof(value):%d\n",sizeof(value));
-       // printf("%d\n",sizeof(value));
 		ret = read(fd, &value,1);
         printf("ret:%d,value:%d\n\n",ret,value);
+        if(value>0)
+        {
+            val=value+3;
+        }
+        else
+        {
+            val=value-3;
+        }
+        write(fd, &val, 4);
 	}
 	
     return 0;
