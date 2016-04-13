@@ -18,20 +18,28 @@ volatile unsigned int *gpfdat = NULL;
 
 static int char_drv_open(struct inode *inode, struct file *file)
 {
+    printk("driver open...\n");
 
 	return 0;
 }
 
 static ssize_t char_drv_write(struct file *file, const char __user *buf, size_t count, loff_t * ppos)
 {
+    printk("driver write...\n");
+	return 0;
+}
 
+ssize_t char_drv_read(struct file *file, char __user *buf, size_t size, loff_t *ppos)
+{
+	printk("driver read...\n");
 	return 0;
 }
 
 static struct file_operations char_drv_fops = {
     .owner  =   THIS_MODULE,    // 宏，指向编译模块时自动创建的__this_module变量 
     .open   =   char_drv_open,     
-	.write	=	char_drv_write,	   
+	.write	=	char_drv_write,
+    .read	 =	char_drv_read,		   
 };
 
 static int char_drv_init(void)
