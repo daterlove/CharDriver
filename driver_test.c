@@ -43,7 +43,8 @@ int main(int argc,char **argv)
     while (1)
 	{
         //printf("sizeof(value):%d\n",sizeof(value));
-		ret = read(fd, &value,1);
+        
+		ret = read(fd, &value,4);
         printf("ret:%d,value:%d\n\n",ret,value);
         if(value>0)
         {
